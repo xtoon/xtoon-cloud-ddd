@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.xtoon.cloud</groupId>
+    <artifactId>xtoon-cloud</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+    <modules>
+        <module>xtoon-common</module>
+        <module>xtoon-ops</module>
+        <module>xtoon-service</module>
+    </modules>
+
+    <name>xtoon-cloud</name>
+    <description>xtoon-cloud是一款基于DDD的微服务开发框架</description>
+
+    <developers>
+        <developer>
+            <id>xin</id>
+            <name>haoxin</name>
+            <organization>xiangtoon, Inc.</organization>
+            <organizationUrl>http://www.xiangtoon.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <repositories>
+        <repository>
+            <id>nexus-aliyun</id>
+            <name>nexus-aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+</project>
