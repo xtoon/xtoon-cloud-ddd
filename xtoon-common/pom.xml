@@ -20,6 +20,7 @@
         <module>xtoon-common-redis</module>
         <module>xtoon-common-web</module>
         <module>xtoon-common-log</module>
+        <module>xtoon-common-swagger</module>
     </modules>
 
 
