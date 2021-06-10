@@ -1,0 +1,21 @@
+server:
+  port: 5020
+  servlet:
+    encoding:
+      force: true
+
+spring:
+  application:
+    name: xtoon-sentinel-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  boot:
+    admin:
+      client:
+        url: http://localhost:5001
+        username: admin
+        password: admin
+        instance:
+          prefer-ip: true

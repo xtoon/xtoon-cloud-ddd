@@ -1,0 +1,29 @@
+server:
+  port: 5001
+
+spring:
+  application:
+    name: xtoon-monitor-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+  security:
+    user:
+      name: "admin"
+      password: "admin"
+
+management:
+  health:
+    redis:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"

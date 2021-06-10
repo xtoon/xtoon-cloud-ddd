@@ -10,6 +10,28 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>xtoon-ops</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>xtoon-monitor-server</module>
+        <module>xtoon-register-server</module>
+        <module>xtoon-sentinel-server</module>
+    </modules>
 
+    <properties>
+        <spring-boot-admin.version>2.4.1</spring-boot-admin.version>
+    </properties>
 
+    <dependencies>
+        <!--监控-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!--监控客户端-->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring-boot-admin.version}</version>
+        </dependency>
+    </dependencies>
 </project>
