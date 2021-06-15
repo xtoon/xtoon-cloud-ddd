@@ -1,5 +1,6 @@
 package com.xtoon.cloud.ops.auth.service;
 
+import com.xtoon.cloud.common.core.constant.AuthConstants;
 import com.xtoon.cloud.ops.auth.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public User loadUserByUsername(String s) throws UsernameNotFoundException {
         // TODO test
-        return new User(1L,"test", new BCryptPasswordEncoder().encode("123456"), true,"client",null);
+        return new User(1L, "test", AuthConstants.BCRYPT + new BCryptPasswordEncoder().encode("123456"), true, "client", null);
     }
 }

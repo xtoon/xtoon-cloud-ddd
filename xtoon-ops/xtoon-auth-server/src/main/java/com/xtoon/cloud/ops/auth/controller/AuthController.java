@@ -29,8 +29,8 @@ public class AuthController {
 
     @PostMapping("/token")
     public OAuth2AccessToken postAccessToken(
-             Principal principal,
-             @RequestParam Map<String, String> parameters
+            Principal principal,
+            @RequestParam Map<String, String> parameters
     ) throws HttpRequestMethodNotSupportedException {
         OAuth2AccessToken oAuth2AccessToken;
         oAuth2AccessToken = tokenEndpoint.postAccessToken(principal, parameters).getBody();
