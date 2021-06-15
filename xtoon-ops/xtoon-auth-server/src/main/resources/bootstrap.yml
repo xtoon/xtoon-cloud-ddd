@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: xtoon-auth-server
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+        enabled: true
+  boot:
+    admin:
+      client:
+        url: http://localhost:5001
+        username: admin
+        password: admin
+        instance:
+          prefer-ip: true
+
+management:
+  health:
+    redis:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"

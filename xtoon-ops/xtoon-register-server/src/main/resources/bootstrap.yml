@@ -8,7 +8,7 @@ db:
   user: root
   password: haoxin963
   url:
-    0: jdbc:mysql://localhost:3306/xtoon-cloud?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    0: jdbc:mysql://localhost:3306/xtoon-nacos?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
 
 
 nacos:

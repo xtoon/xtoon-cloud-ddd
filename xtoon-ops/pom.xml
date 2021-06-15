@@ -15,6 +15,7 @@
         <module>xtoon-monitor-server</module>
         <module>xtoon-register-server</module>
         <module>xtoon-sentinel-server</module>
+        <module>xtoon-auth-server</module>
     </modules>
 
     <properties>

@@ -20,6 +20,11 @@
             <artifactId>xtoon-common-core</artifactId>
             <version>${xtoon-cloud.version}</version>
         </dependency>
+        <!--数据库-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
         <!--mybatis-->
         <dependency>
             <groupId>com.baomidou</groupId>
