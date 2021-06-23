@@ -19,14 +19,6 @@ public interface UserRepository {
     User find(UserId userId);
 
     /**
-     * 根据token获取用户
-     *
-     * @param token
-     * @return
-     */
-    User find(Token token);
-
-    /**
      * 根据手机号获取账号
      *
      * @param mobile

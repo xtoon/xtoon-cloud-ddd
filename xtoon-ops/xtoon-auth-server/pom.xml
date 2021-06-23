@@ -24,12 +24,27 @@
         </dependency>
         <dependency>
             <groupId>com.xtoon.cloud</groupId>
+            <artifactId>xtoon-common-swagger</artifactId>
+            <version>${xtoon-cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xtoon.cloud</groupId>
+            <artifactId>xtoon-common-redis</artifactId>
+            <version>${xtoon-cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xtoon.cloud</groupId>
             <artifactId>xtoon-common-web</artifactId>
             <version>${xtoon-cloud.version}</version>
         </dependency>
         <dependency>
             <groupId>com.xtoon.cloud</groupId>
             <artifactId>xtoon-common-mybatis</artifactId>
+            <version>${xtoon-cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xtoon.cloud</groupId>
+            <artifactId>xtoon-sys-interface</artifactId>
             <version>${xtoon-cloud.version}</version>
         </dependency>
         <!--注册中心客户端-->
@@ -58,5 +73,14 @@
             <artifactId>spring-security-oauth2-jose</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-dubbo</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>2.7.8</version>
+        </dependency>
     </dependencies>
 </project>

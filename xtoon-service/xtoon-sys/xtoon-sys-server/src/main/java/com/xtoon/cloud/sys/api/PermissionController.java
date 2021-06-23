@@ -1,5 +1,6 @@
 package com.xtoon.cloud.sys.api;
 
+import com.xtoon.cloud.common.core.util.RequestUtils;
 import com.xtoon.cloud.common.log.SysLog;
 import com.xtoon.cloud.common.web.util.Result;
 import com.xtoon.cloud.common.web.util.validator.ValidatorUtils;
@@ -16,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 权限Controller
@@ -40,10 +42,9 @@ public class PermissionController {
     @ApiOperation("导航菜单")
     @GetMapping("/nav")
     public Result nav() {
-//        List<PermissionDTO> menuList = permissionQueryService.getUserMenuTree(getUser().getPermissionIds());
-//        Set<String> permissions = getUser().getPermissionCodes();
-//        return Result.ok().put("menuList", menuList).put("permissions", permissions);
-        return Result.ok();
+        List<PermissionDTO> menuList = permissionQueryService.getUserMenuTree(RequestUtils.getUserId());
+        Set<String> permissions = permissionQueryService.getPermissionCodes(RequestUtils.getUserId());
+        return Result.ok().put("menuList", menuList).put("permissions", permissions);
     }
 
     /**

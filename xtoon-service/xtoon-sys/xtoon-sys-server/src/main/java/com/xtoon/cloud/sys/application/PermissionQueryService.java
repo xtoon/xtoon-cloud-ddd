@@ -38,8 +38,25 @@ public interface PermissionQueryService {
     /**
      * 获取权限树
      *
-     * @param permissionIds
+     * @param userId
      * @return
      */
-    List<PermissionDTO> getUserMenuTree(Set<String> permissionIds);
+    List<PermissionDTO> getUserMenuTree(String userId);
+
+    /**
+     * 获取权限编码
+     *
+     * @param userId
+     * @return
+     */
+    Set<String> getPermissionCodes(String userId);
+
+    /**
+     * 获取权限id
+     *
+     * @param userId
+     * @return
+     */
+    Set<String> getPermissionIds(String userId);
+
 }

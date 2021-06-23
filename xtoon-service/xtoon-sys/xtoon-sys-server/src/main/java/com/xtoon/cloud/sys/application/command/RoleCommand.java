@@ -16,28 +16,28 @@ import java.util.List;
  * @date 2021-02-18
  **/
 @Data
-@ApiModel(value="角色",description="角色")
+@ApiModel(value = "角色", description = "角色")
 public class RoleCommand {
 
     /**
      * id
      */
     @ApiModelProperty(value = "角色id")
-    @NotBlank(message="角色id不能为空", groups = UpdateGroup.class)
+    @NotBlank(message = "角色id不能为空", groups = UpdateGroup.class)
     private String id;
 
     /**
      * 角色编码
      */
     @ApiModelProperty(value = "角色编码")
-    @NotBlank(message="角色编码不能为空", groups = AddGroup.class)
+    @NotBlank(message = "角色编码不能为空", groups = AddGroup.class)
     private String roleCode;
 
     /**
      * 角色名称
      */
     @ApiModelProperty(value = "角色名称")
-    @NotBlank(message="角色名称不能为空", groups = AddGroup.class)
+    @NotBlank(message = "角色名称不能为空", groups = AddGroup.class)
     private String roleName;
 
     /**

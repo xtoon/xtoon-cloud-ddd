@@ -1,17 +1,13 @@
 package com.xtoon.cloud.ops.auth.service;
 
-import com.xtoon.cloud.common.core.constant.AuthConstants;
 import com.xtoon.cloud.ops.auth.domain.User;
-import lombok.AllArgsConstructor;
+import com.xtoon.cloud.sys.dto.AuthenticationDTO;
+import com.xtoon.cloud.sys.service.AuthenticationService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * 自定义用户认证和授权
@@ -20,15 +16,19 @@ import java.util.List;
  * @date 2021-05-29
  **/
 @Service
-@AllArgsConstructor
 @Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    @DubboReference
+    protected AuthenticationService authenticationService;
+
     @Override
-    public User loadUserByUsername(String s) throws UsernameNotFoundException {
-        String permissions = "log:list";
-        List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(permissions);
-        // TODO test
-        return new User(1L, "test", AuthConstants.BCRYPT + new BCryptPasswordEncoder().encode("123456"), true, "client", grantedAuthorities);
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+        AuthenticationDTO authenticationDTO = authenticationService.loginByUserName(username);
+        if (authenticationDTO != null) {
+            return new User(authenticationDTO);
+        } else {
+            throw new UsernameNotFoundException("");
+        }
     }
 }

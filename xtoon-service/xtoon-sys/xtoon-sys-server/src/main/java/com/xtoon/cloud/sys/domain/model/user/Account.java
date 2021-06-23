@@ -30,18 +30,12 @@ public class Account implements Entity<Account> {
      */
     private Password password;
 
-    /**
-     * token
-     */
-    private Token token;
 
-
-    public Account(AccountId accountId, Mobile mobile, Email email, Password password, Token token) {
+    public Account(AccountId accountId, Mobile mobile, Email email, Password password) {
         this.accountId = accountId;
         this.mobile = mobile;
         this.email = email;
         this.password = password;
-        this.token = token;
     }
 
     public Account(Mobile mobile, String password) {
@@ -67,7 +61,7 @@ public class Account implements Entity<Account> {
      * @return
      */
     public boolean checkPassword(String passwordStr) {
-        return password != null && this.password.sameValueAs(Password.create(passwordStr, password.getSalt()));
+        return password != null && this.password.sameValueAs(Password.create(passwordStr));
     }
 
     /**
@@ -81,25 +75,7 @@ public class Account implements Entity<Account> {
         if (!checkPassword(oldPasswordStr)) {
             throw new RuntimeException("原密码不正确");
         }
-        this.password = Password.create(newPasswordStr, password.getSalt());
-    }
-
-    /**
-     * 检查token是否有效
-     *
-     * @return
-     */
-    public boolean isTokenValid() {
-        return this.token != null && this.token.getExpireTime() != null &&
-                this.token.getExpireTime().getTime() >= System.currentTimeMillis();
-    }
-
-    /**
-     * 更新Token
-     */
-    public Account updateToken(String tokenStr) {
-        this.token = Token.create(tokenStr);
-        return this;
+        this.password = Password.create(newPasswordStr);
     }
 
     public AccountId getAccountId() {
@@ -116,9 +92,5 @@ public class Account implements Entity<Account> {
 
     public Password getPassword() {
         return password;
-    }
-
-    public Token getToken() {
-        return token;
     }
 }

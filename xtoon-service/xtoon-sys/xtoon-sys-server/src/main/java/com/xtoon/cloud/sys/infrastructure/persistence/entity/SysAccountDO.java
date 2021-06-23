@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.xtoon.cloud.common.mybatis.util.BaseDO;
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * 用户Token DO
  *
@@ -31,18 +29,4 @@ public class SysAccountDO extends BaseDO {
      */
     private String password;
 
-    /**
-     * 盐
-     */
-    private String salt;
-
-    /**
-     * token
-     */
-    private String token;
-
-    /**
-     * 过期时间
-     */
-    private Date expireTime;
 }

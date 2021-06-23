@@ -54,18 +54,6 @@ public class UserRepositoryImpl extends ServiceImpl<SysUserMapper, SysUserDO> im
     }
 
     @Override
-    public User find(Token token) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("token", token.getToken());
-        SysUserDO sysUserDO = baseMapper.queryUser(params);
-        if (sysUserDO == null) {
-            return null;
-        }
-        User user = UserConverter.toUser(sysUserDO, getUserAccount(sysUserDO.getAccountId()), getUserRoleIds(sysUserDO.getId()));
-        return user;
-    }
-
-    @Override
     public List<User> find(Mobile mobile) {
         Map<String, Object> params = new HashMap<>();
         params.put("mobile", mobile.getMobile());

@@ -6,8 +6,12 @@ import cn.hutool.json.JSONUtil;
 import com.nimbusds.jose.JWSObject;
 import com.xtoon.cloud.common.core.constant.AuthConstants;
 import com.xtoon.cloud.common.core.constant.CommonConstant;
+import com.xtoon.cloud.common.redis.util.RedisService;
+import com.xtoon.cloud.common.web.constant.ResultCode;
+import com.xtoon.cloud.ops.gateway.util.WebUtils;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -26,8 +30,8 @@ import reactor.core.publisher.Mono;
 @Component
 public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
-//    @Autowired
-//    private RedisService redisService;
+    @Autowired
+    private RedisService redisService;
 
     @SneakyThrows
     @Override
@@ -47,11 +51,11 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         JWSObject jwsObject = JWSObject.parse(token);
         String payload = jwsObject.getPayload().toString();
         JSONObject jsonObject = JSONUtil.parseObj(payload);
-//        String jti = jsonObject.getStr(AuthConstants.JWT_JTI);
-//        Boolean isBlack = redisService.hasKey(AuthConstants.TOKEN_BLACKLIST_PREFIX + jti);
-//        if (isBlack) {
-//            return WebUtils.getAuthFailResult(response, ResultCode.UNAUTHORIZED.getCode());
-//        }
+        String jti = jsonObject.getStr(AuthConstants.JWT_JTI);
+        Boolean isBlack = redisService.hasKey(AuthConstants.TOKEN_BLACKLIST_PREFIX + jti);
+        if (isBlack) {
+            return WebUtils.getAuthFailResult(response, ResultCode.UNAUTHORIZED.getCode());
+        }
 
         // 存在token且不是黑名单，request写入JWT的载体信息
         String tenantId = request.getHeaders().getFirst(CommonConstant.TENANT_ID);

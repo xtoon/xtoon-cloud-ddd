@@ -19,4 +19,6 @@ public interface TenantQueryService {
      * @return
      */
     Page queryPage(Map<String, Object> params);
+
+
 }

@@ -2,6 +2,7 @@ package com.xtoon.cloud.common.web.util;
 
 import com.xtoon.cloud.common.core.constant.CommonConstant;
 import com.xtoon.cloud.common.core.util.TenantContext;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -21,7 +22,9 @@ public class TenantHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse response, Object handler) {
         // 多租户支持
         String tenantId = httpServletRequest.getHeader(CommonConstant.TENANT_ID);
-        TenantContext.setTenantId(tenantId);
+        if (StringUtils.isNoneBlank(tenantId)) {
+            TenantContext.setTenantId(tenantId);
+        }
         return true;
     }
 }

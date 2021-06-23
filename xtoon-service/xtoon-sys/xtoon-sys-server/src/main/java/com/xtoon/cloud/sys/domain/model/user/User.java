@@ -84,10 +84,6 @@ public class User implements Entity<User> {
         this.status = status;
     }
 
-    public void refreshToken(String tokenStr) {
-        account.updateToken(tokenStr);
-    }
-
     public void changePassword(String oldPasswordStr, String newPasswordStr) {
         account.changePassword(oldPasswordStr, newPasswordStr);
     }

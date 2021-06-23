@@ -1,7 +1,6 @@
 package com.xtoon.cloud.sys.domain.model.user;
 
 import com.xtoon.cloud.common.core.domain.ValueObject;
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -20,39 +19,20 @@ public class Password implements ValueObject<Password> {
      */
     private String password;
 
-    /**
-     * 盐
-     */
-    private String salt;
-
-    public Password(String password, String salt) {
+    public Password(String password) {
         if (StringUtils.isEmpty(password)) {
             throw new IllegalArgumentException("密码不能为空");
         }
         this.password = password;
-        this.salt = salt;
     }
 
     public static Password create(String passwordStr) {
-        String salt = RandomStringUtils.randomAlphanumeric(20);
-        String password = new BCryptPasswordEncoder().encode(passwordStr + salt);
-        return new Password(password, salt);
-    }
-
-    public static Password create(String passwordStr, String salt) {
-        if (passwordStr.length() < 6) {
-            throw new IllegalArgumentException("密码长度不能小于6");
-        }
-        String password = new BCryptPasswordEncoder().encode(passwordStr + salt);
-        return new Password(password, salt);
+        String password = new BCryptPasswordEncoder().encode(passwordStr);
+        return new Password(password);
     }
 
     public String getPassword() {
         return password;
-    }
-
-    public String getSalt() {
-        return salt;
     }
 
     @Override
@@ -64,7 +44,6 @@ public class Password implements ValueObject<Password> {
     public String toString() {
         return "Password{" +
                 "password='" + password + '\'' +
-                ", salt='" + salt + '\'' +
                 '}';
     }
 }

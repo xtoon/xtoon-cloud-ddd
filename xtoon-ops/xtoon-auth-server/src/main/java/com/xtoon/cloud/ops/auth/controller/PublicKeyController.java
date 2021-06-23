@@ -2,6 +2,7 @@ package com.xtoon.cloud.ops.auth.controller;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import java.util.Map;
  * @author haoxin
  * @date 2021-05-29
  **/
+@Api(tags = "获取公钥接口")
 @RestController
 @RequestMapping
 @AllArgsConstructor

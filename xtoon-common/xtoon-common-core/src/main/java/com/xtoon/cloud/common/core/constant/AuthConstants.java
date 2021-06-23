@@ -60,6 +60,13 @@ public interface AuthConstants {
 
     String SELECT_CLIENT_DETAILS_SQL = BASE_CLIENT_DETAILS_SQL + " where client_id = ?";
 
+
+    /**
+     * 认证地址
+     */
+    String OAUTH_TOKEN = "/oauth/token";
+
+
     /**
      * 密码加密方式
      */
@@ -86,5 +93,18 @@ public interface AuthConstants {
 
     String REFRESH_TOKEN = "refresh_token";
 
+    /**
+     * 密码
+     */
+    String PASSWORD = "password";
 
+    /**
+     * 验证码
+     */
+    String VALIDATE_CODE_CODE = "code";
+
+    /**
+     * 验证码 key
+     */
+    String VALIDATE_CODE_KEY = "key";
 }

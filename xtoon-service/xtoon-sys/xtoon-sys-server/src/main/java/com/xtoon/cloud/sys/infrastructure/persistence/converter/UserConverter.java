@@ -44,9 +44,6 @@ public class UserConverter {
         sysAccountDO.setEmail(account.getEmail() == null ? null : account.getEmail().getEmail());
         sysAccountDO.setMobile(account.getMobile() == null ? null : account.getMobile().getMobile());
         sysAccountDO.setPassword(account.getPassword() == null ? null : account.getPassword().getPassword());
-        sysAccountDO.setSalt(account.getPassword() == null ? null : account.getPassword().getSalt());
-        sysAccountDO.setToken(account.getToken() == null ? null : account.getToken().getToken());
-        sysAccountDO.setExpireTime(account.getToken() == null ? null : account.getToken().getExpireTime());
         return sysAccountDO;
     }
 
@@ -64,13 +61,10 @@ public class UserConverter {
         }
         Password password = null;
         if (sysAccountDO.getPassword() != null) {
-            password = new Password(sysAccountDO.getPassword(), sysAccountDO.getSalt());
+            password = new Password(sysAccountDO.getPassword());
         }
-        Token token = null;
-        if (sysAccountDO.getToken() != null) {
-            token = new Token(sysAccountDO.getToken(), sysAccountDO.getExpireTime());
-        }
-        Account account = new Account(new AccountId(sysAccountDO.getId()), mobile, email, password, token);
+
+        Account account = new Account(new AccountId(sysAccountDO.getId()), mobile, email, password);
         return account;
     }
 }

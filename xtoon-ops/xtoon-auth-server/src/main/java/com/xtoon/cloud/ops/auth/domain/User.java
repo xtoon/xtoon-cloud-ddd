@@ -1,32 +1,26 @@
 package com.xtoon.cloud.ops.auth.domain;
 
+import com.xtoon.cloud.common.core.constant.AuthConstants;
+import com.xtoon.cloud.common.core.domain.StatusEnum;
+import com.xtoon.cloud.sys.dto.AuthenticationDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+
 /**
  * 登录用户信息
- *
- * @author haoxin
- * @date 2021-06-15
- **/
+ */
 @Data
 @NoArgsConstructor
 public class User implements UserDetails {
 
-    public User(Long id, String username, String password, Boolean enabled, String clientId, Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.enabled = enabled;
-        this.clientId = clientId;
-        this.authorities = authorities;
-    }
-
-    private Long id;
+    private String id;
 
     private String username;
 
@@ -36,7 +30,30 @@ public class User implements UserDetails {
 
     private String clientId;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private Collection<GrantedAuthority> authorities;
+
+    public User(AuthenticationDTO authenticationDTO) {
+        this.setId(authenticationDTO.getUserId());
+        this.setUsername(authenticationDTO.getUserName());
+        this.setPassword(AuthConstants.BCRYPT + authenticationDTO.getPassword());
+        this.setEnabled(StatusEnum.ENABLE.getValue().equals(authenticationDTO.getStatus()));
+        this.authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(StringUtils.join(authenticationDTO.getPermissionCodes(), ","));
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
 
     @Override
     public boolean isAccountNonExpired() {

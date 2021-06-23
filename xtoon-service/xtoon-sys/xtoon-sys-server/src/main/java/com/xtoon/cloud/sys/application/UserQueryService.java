@@ -28,12 +28,4 @@ public interface UserQueryService {
      * @return
      */
     UserDTO find(String userId);
-
-    /**
-     * token查询用户
-     *
-     * @param token
-     * @return
-     */
-    UserDTO queryByToken(String token);
 }

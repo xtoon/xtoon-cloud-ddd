@@ -1,5 +1,6 @@
 package com.xtoon.cloud.sys.api;
 
+import com.xtoon.cloud.common.core.util.RequestUtils;
 import com.xtoon.cloud.common.log.SysLog;
 import com.xtoon.cloud.common.mybatis.constant.PageConstant;
 import com.xtoon.cloud.common.mybatis.util.Page;
@@ -54,8 +55,7 @@ public class UserController {
     @ApiOperation("获取登录的用户信息")
     @GetMapping("/info")
     public Result info() {
-//        return Result.ok().put("user", getUser());
-        return Result.ok();
+        return Result.ok().put("user", userQueryService.find(RequestUtils.getUserId()));
     }
 
     /**
@@ -66,7 +66,7 @@ public class UserController {
     @PostMapping("/password")
     public Result changePassword(@RequestBody PasswordCommand passwordCommand) {
         ValidatorUtils.validateEntity(passwordCommand);
-//        passwordCommand.setUserId(getUser().getId());
+        passwordCommand.setUserId(RequestUtils.getUserId());
         userApplicationService.changePassword(passwordCommand);
         return Result.ok();
     }

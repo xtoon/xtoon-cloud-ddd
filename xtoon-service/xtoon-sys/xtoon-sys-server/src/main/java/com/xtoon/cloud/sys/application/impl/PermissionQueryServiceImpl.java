@@ -1,5 +1,7 @@
 package com.xtoon.cloud.sys.application.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xtoon.cloud.common.core.domain.StatusEnum;
 import com.xtoon.cloud.common.core.util.TenantContext;
 import com.xtoon.cloud.sys.application.PermissionQueryService;
 import com.xtoon.cloud.sys.application.assembler.PermissionDTOAssembler;
@@ -10,10 +12,14 @@ import com.xtoon.cloud.sys.domain.model.permission.PermissionRepository;
 import com.xtoon.cloud.sys.domain.model.permission.PermissionTypeEnum;
 import com.xtoon.cloud.sys.domain.model.role.RoleCode;
 import com.xtoon.cloud.sys.domain.model.tenant.TenantId;
+import com.xtoon.cloud.sys.domain.model.user.UserId;
+import com.xtoon.cloud.sys.infrastructure.persistence.entity.SysPermissionDO;
+import com.xtoon.cloud.sys.infrastructure.persistence.mapper.SysPermissionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 权限查询服务实现类
@@ -26,6 +32,9 @@ public class PermissionQueryServiceImpl implements PermissionQueryService {
 
     @Autowired
     private PermissionRepository permissionRepository;
+
+    @Autowired
+    private SysPermissionMapper sysPermissionMapper;
 
     @Override
     public List<PermissionDTO> listAllPermission() {
@@ -56,11 +65,43 @@ public class PermissionQueryServiceImpl implements PermissionQueryService {
     }
 
     @Override
-    public List<PermissionDTO> getUserMenuTree(Set<String> permissionIds) {
+    public List<PermissionDTO> getUserMenuTree(String userId) {
+        Set<String> permissionIds = getPermissionIds(userId);
         if (permissionIds == null) {
             return null;
         }
         return getAllMenuList(permissionIds);
+    }
+
+    @Override
+    public Set<String> getPermissionCodes(String userId) {
+        List<SysPermissionDO> sysPermissionDOList = getSysPermissionDOList(userId);
+        Set<String> permissionCodes = sysPermissionDOList.stream().filter(p -> p.getPermissionCodes() != null).
+                flatMap(p -> Arrays.asList(p.getPermissionCodes().trim().split(",")).stream()).collect(Collectors.toSet());
+        return permissionCodes;
+    }
+
+    @Override
+    public Set<String> getPermissionIds(String userId) {
+        List<SysPermissionDO> sysPermissionDOList = getSysPermissionDOList(userId);
+        Set<String> permissionIds = sysPermissionDOList.stream().map(p -> p.getId()).collect(Collectors.toSet());
+        return permissionIds;
+    }
+
+    /**
+     * 获取用户权限
+     *
+     * @param userId
+     * @return
+     */
+    private List<SysPermissionDO> getSysPermissionDOList(String userId) {
+        List<SysPermissionDO> sysPermissionDOList;
+        if (new UserId(userId).isSysAdmin()) {
+            sysPermissionDOList = sysPermissionMapper.selectList(new QueryWrapper<SysPermissionDO>().eq("status", StatusEnum.ENABLE.getValue()));
+        } else {
+            sysPermissionDOList = sysPermissionMapper.queryPermissionByUserId(userId);
+        }
+        return sysPermissionDOList;
     }
 
     /**

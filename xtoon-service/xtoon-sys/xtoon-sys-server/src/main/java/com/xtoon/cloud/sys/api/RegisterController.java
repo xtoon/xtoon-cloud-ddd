@@ -4,7 +4,7 @@ import com.xtoon.cloud.common.log.SysLog;
 import com.xtoon.cloud.common.web.util.Result;
 import com.xtoon.cloud.common.web.util.validator.ValidatorUtils;
 import com.xtoon.cloud.common.web.util.validator.group.AddGroup;
-import com.xtoon.cloud.sys.application.AuthenticationApplicationService;
+import com.xtoon.cloud.sys.application.RegisterApplicationService;
 import com.xtoon.cloud.sys.application.command.RegisterTenantCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegisterController {
 
     @Autowired
-    private AuthenticationApplicationService authenticationApplicationService;
+    private RegisterApplicationService registerApplicationService;
 
     /**
      * 注册租户
@@ -34,7 +34,7 @@ public class RegisterController {
     @PostMapping("/registerTenant")
     public Result registerTenantAndUser(@RequestBody RegisterTenantCommand registerTenantCommand) {
         ValidatorUtils.validateEntity(registerTenantCommand, AddGroup.class);
-        authenticationApplicationService.registerTenant(registerTenantCommand);
+        registerApplicationService.registerTenant(registerTenantCommand);
         return Result.ok();
     }
 }
