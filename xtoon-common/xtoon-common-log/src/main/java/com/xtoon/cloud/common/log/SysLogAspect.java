@@ -3,6 +3,10 @@ package com.xtoon.cloud.common.log;
 import com.google.gson.Gson;
 import com.xtoon.cloud.common.core.util.HttpContextUtils;
 import com.xtoon.cloud.common.core.util.IPUtils;
+import com.xtoon.cloud.common.core.util.RequestUtils;
+import com.xtoon.cloud.sys.dto.LogDTO;
+import com.xtoon.cloud.sys.service.LogSaveService;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -27,8 +31,8 @@ public class SysLogAspect {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-//    @Autowired
-//    private LogRepository logRepository;
+    @DubboReference
+    private LogSaveService logSaveService;
 
     @Pointcut("@annotation(com.xtoon.cloud.common.log.SysLog)")
     public void logPointCut() {
@@ -46,33 +50,35 @@ public class SysLogAspect {
             //保存日志
             saveSysLog(point, time);
         } catch (Exception e) {
-            logger.error("保存日志失败："+e.getMessage());
+            logger.error("保存日志失败：" + e.getMessage());
         }
 
         return result;
     }
 
     private void saveSysLog(ProceedingJoinPoint joinPoint, long time) {
+        LogDTO logDTO = new LogDTO();
+        logDTO.setTime(time);
+        logDTO.setUserName(RequestUtils.getUserName());
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         SysLog syslog = method.getAnnotation(SysLog.class);
-        String operation = null;
-        if(syslog != null){
+        if (syslog != null) {
             //注解上的描述
-            operation = syslog.value();
+            String operation = syslog.value();
+            logDTO.setOperation(operation);
         }
-
         //请求的方法名
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = signature.getName();
         String methodString = className + "." + methodName + "()";
-
+        logDTO.setMethod(methodString);
         //请求的参数
-        String params = null;
         Object[] args = joinPoint.getArgs();
-        try{
-            params = new Gson().toJson(args);
-        } catch (Exception e){
+        try {
+            String params = new Gson().toJson(args);
+            logDTO.setParams(params);
+        } catch (Exception e) {
             logger.error(e.getMessage());
         }
 
@@ -80,17 +86,7 @@ public class SysLogAspect {
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
         //设置IP地址
         String ip = IPUtils.getIpAddr(request);
-
-//        //用户名
-//        UserName userName = null;
-//        try{
-//            String userNameStr = ((UserDTO) SecurityUtils.getSubject().getPrincipal()).getUserName();
-//            userName = new UserName(userNameStr);
-//        } catch (Exception e) {
-//            logger.error(e.getMessage());
-//        }
-//        Log log = new Log(null,userName, operation, methodString, params, time, ip);
-//        //保存系统日志
-//        logRepository.store(log);
+        logDTO.setIp(ip);
+        logSaveService.save(logDTO);
     }
 }

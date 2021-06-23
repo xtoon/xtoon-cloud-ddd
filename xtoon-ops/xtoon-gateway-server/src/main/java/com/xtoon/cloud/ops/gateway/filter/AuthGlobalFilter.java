@@ -5,6 +5,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.nimbusds.jose.JWSObject;
 import com.xtoon.cloud.common.core.constant.AuthConstants;
+import com.xtoon.cloud.common.core.constant.CommonConstant;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -53,8 +54,10 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
 //        }
 
         // 存在token且不是黑名单，request写入JWT的载体信息
+        String tenantId = request.getHeaders().getFirst(CommonConstant.TENANT_ID);
         request = exchange.getRequest().mutate()
                 .header(AuthConstants.JWT_PAYLOAD_KEY, payload)
+                .header(CommonConstant.TENANT_ID, tenantId)
                 .build();
         exchange = exchange.mutate().request(request).build();
         return chain.filter(exchange);

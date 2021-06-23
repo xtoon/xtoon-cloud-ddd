@@ -2,7 +2,7 @@ package com.xtoon.cloud.ops.auth.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -17,7 +17,7 @@ import java.util.Collection;
 @NoArgsConstructor
 public class User implements UserDetails {
 
-    public User(Long id, String username, String password, Boolean enabled, String clientId, Collection<SimpleGrantedAuthority> authorities) {
+    public User(Long id, String username, String password, Boolean enabled, String clientId, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -36,7 +36,7 @@ public class User implements UserDetails {
 
     private String clientId;
 
-    private Collection<SimpleGrantedAuthority> authorities;
+    private Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public boolean isAccountNonExpired() {

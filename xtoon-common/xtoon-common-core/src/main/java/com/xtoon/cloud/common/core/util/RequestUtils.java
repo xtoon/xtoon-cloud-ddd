@@ -1,4 +1,4 @@
-package com.xtoon.cloud.common.web.util;
+package com.xtoon.cloud.common.core.util;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -29,14 +29,14 @@ public class RequestUtils {
         return jsonObject;
     }
 
-    public static Long getUserId() {
-        Long id = getJwtPayload().getLong(CommonConstant.USER_ID);
-        return id;
+    public static String getUserId() {
+        String userId = getJwtPayload().getStr(CommonConstant.USER_ID);
+        return userId;
     }
 
 
     public static String getUserName() {
-        String username = getJwtPayload().getStr(CommonConstant.USER_NAME);
-        return username;
+        String userName = getJwtPayload().getStr(CommonConstant.USER_NAME);
+        return userName;
     }
 }
