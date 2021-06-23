@@ -35,6 +35,11 @@ public class AuthenticationDTO implements Serializable {
     private String status;
 
     /**
+     * 租户ID
+     */
+    private String tenantId;
+
+    /**
      * 权限编码
      */
     private Set<String> permissionCodes;

@@ -28,7 +28,7 @@ public class User implements UserDetails {
 
     private Boolean enabled;
 
-    private String clientId;
+    private String tenantId;
 
     private Collection<GrantedAuthority> authorities;
 
@@ -37,6 +37,7 @@ public class User implements UserDetails {
         this.setUsername(authenticationDTO.getUserName());
         this.setPassword(AuthConstants.BCRYPT + authenticationDTO.getPassword());
         this.setEnabled(StatusEnum.ENABLE.getValue().equals(authenticationDTO.getStatus()));
+        this.setTenantId(authenticationDTO.getTenantId());
         this.authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(StringUtils.join(authenticationDTO.getPermissionCodes(), ","));
     }
 

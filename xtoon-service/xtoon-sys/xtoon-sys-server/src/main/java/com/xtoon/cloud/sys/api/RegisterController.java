@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @Api(tags = "注册")
 @RestController
+@RequestMapping("/register")
 public class RegisterController {
 
     @Autowired
@@ -31,7 +33,7 @@ public class RegisterController {
      */
     @ApiOperation("注册租户")
     @SysLog("注册租户")
-    @PostMapping("/registerTenant")
+    @PostMapping("/tenant")
     public Result registerTenantAndUser(@RequestBody RegisterTenantCommand registerTenantCommand) {
         ValidatorUtils.validateEntity(registerTenantCommand, AddGroup.class);
         registerApplicationService.registerTenant(registerTenantCommand);

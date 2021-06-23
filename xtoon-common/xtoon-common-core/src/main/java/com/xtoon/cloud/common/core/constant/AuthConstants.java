@@ -72,11 +72,11 @@ public interface AuthConstants {
      */
     String BCRYPT = "{bcrypt}";
 
-    String USER_ID_KEY = "user_id";
+    String USER_ID_KEY = "userId";
 
     String USER_NAME_KEY = "userName";
 
-    String CLIENT_ID_KEY = "client_id";
+    String TENANT_ID_KEY = "tenantId";
 
     /**
      * JWT存储权限前缀

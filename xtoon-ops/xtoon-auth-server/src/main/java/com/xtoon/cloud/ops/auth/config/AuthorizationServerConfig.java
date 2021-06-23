@@ -113,6 +113,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             User user = (User) authentication.getUserAuthentication().getPrincipal();
             map.put(AuthConstants.USER_ID_KEY, user.getId());
             map.put(AuthConstants.USER_NAME_KEY, user.getUsername());
+            map.put(AuthConstants.TENANT_ID_KEY, user.getTenantId());
             ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(map);
             return accessToken;
         };

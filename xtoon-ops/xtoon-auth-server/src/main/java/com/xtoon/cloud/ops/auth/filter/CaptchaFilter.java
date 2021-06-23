@@ -44,8 +44,9 @@ public class CaptchaFilter extends OncePerRequestFilter {
                 httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
                 httpServletResponse.setStatus(HttpServletResponse.SC_OK);
                 httpServletResponse.getOutputStream().write(JSONObject.toJSONString(Result.error("验证码不正确")).getBytes());
+            } else {
+                filterChain.doFilter(httpServletRequest, httpServletResponse);
             }
-            filterChain.doFilter(httpServletRequest, httpServletResponse);
         } else {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         }
