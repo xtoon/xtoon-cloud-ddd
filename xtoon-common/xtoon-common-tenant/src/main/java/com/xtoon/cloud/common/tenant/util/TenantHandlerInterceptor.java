@@ -1,4 +1,4 @@
-package com.xtoon.cloud.common.web.util;
+package com.xtoon.cloud.common.tenant.util;
 
 import com.xtoon.cloud.common.core.constant.CommonConstant;
 import com.xtoon.cloud.common.core.util.TenantContext;

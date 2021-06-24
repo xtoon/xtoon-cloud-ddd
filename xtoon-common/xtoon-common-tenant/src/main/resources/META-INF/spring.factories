@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.xtoon.cloud.common.tenant.util.TenantHandlerInterceptor,\
+    com.xtoon.cloud.common.tenant.config.WebConfigurer

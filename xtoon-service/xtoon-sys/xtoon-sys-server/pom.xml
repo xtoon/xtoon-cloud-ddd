@@ -43,6 +43,11 @@
         </dependency>
         <dependency>
             <groupId>com.xtoon.cloud</groupId>
+            <artifactId>xtoon-common-tenant</artifactId>
+            <version>${xtoon-cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xtoon.cloud</groupId>
             <artifactId>xtoon-common-log</artifactId>
             <version>${xtoon-cloud.version}</version>
         </dependency>

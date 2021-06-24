@@ -21,6 +21,7 @@
         <module>xtoon-common-web</module>
         <module>xtoon-common-log</module>
         <module>xtoon-common-swagger</module>
+        <module>xtoon-common-tenant</module>
     </modules>
 
 
