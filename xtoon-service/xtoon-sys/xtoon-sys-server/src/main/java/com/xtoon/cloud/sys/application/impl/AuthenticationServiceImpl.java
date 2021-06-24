@@ -23,7 +23,7 @@ import java.util.List;
  * @author haoxin
  * @date 2021-05-10
  **/
-@DubboService
+@DubboService(timeout = 3000)
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Autowired

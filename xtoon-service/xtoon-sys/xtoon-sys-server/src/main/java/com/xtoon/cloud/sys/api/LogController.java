@@ -1,5 +1,6 @@
 package com.xtoon.cloud.sys.api;
 
+import com.xtoon.cloud.common.log.SysLog;
 import com.xtoon.cloud.common.mybatis.constant.PageConstant;
 import com.xtoon.cloud.common.mybatis.util.Page;
 import com.xtoon.cloud.common.web.util.Result;
@@ -34,7 +35,7 @@ public class LogController {
      */
     @ApiOperation("分页查询日志")
     @GetMapping("/list")
-    @PreAuthorize("hasAuthority('log:list')")
+    @PreAuthorize("hasAuthority('sys:log:list')")
     public Result list(@RequestParam Map<String, Object> params) {
         Page page = logQueryService.queryPage(params);
         return Result.ok().put(PageConstant.PAGE, page);

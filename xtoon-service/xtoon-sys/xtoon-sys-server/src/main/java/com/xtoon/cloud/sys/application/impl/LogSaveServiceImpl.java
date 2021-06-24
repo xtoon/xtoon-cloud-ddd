@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author haoxin
  * @date 2021-06-21
  **/
-@DubboService
+@DubboService(timeout = 3000)
 public class LogSaveServiceImpl implements LogSaveService {
 
     @Autowired
