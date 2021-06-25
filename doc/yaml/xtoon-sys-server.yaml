@@ -1,0 +1,54 @@
+server:
+  port: 8101
+
+dubbo:
+  application:
+    id: xtoon-sys-server
+    name: xtoon-sys-server
+    qosEnable: false
+  registry:
+    address: nacos://localhost:8848
+    check: false
+  protocol:
+    name: dubbo
+    port: -1
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: haoxin963
+    url: jdbc:mysql://localhost:3306/xtoon-cloud?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+  redis:
+    host: localhost
+    port: 6379
+    password: xtoon123
+    database: 0
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:5003
+
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath*:com/xtoon/cloud/**/infrastructure/persistence/mapper/xml/*Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.xtoon.cloud.*.infrastructure.persistence.entity
+  global-config:
+    #数据库相关配置
+    db-config:
+      id-type: ASSIGN_ID
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      logic-delete-field: delFlag
+    banner: false
+  #原生配置
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    jdbc-type-for-null: 'null'

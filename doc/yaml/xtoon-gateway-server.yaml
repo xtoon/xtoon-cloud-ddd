@@ -1,0 +1,48 @@
+server:
+  port: 10000
+
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    password: xtoon123
+    database: 0
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # 获取JWT验签公钥请求路径
+          jwk-set-uri: 'http://localhost:8000/getPublicKey'
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:5003
+    gateway:
+      routes:
+      # 认证中心
+      - id: xtoon-auth-server
+        uri: lb://xtoon-auth-server
+        predicates:
+        - Path=/auth/**
+      # 用户
+      - id: xtoon-sys-server
+        uri: lb://xtoon-sys-server
+        predicates:
+        - Path=/sys/**
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+
+# 配置白名单路径
+white-list:
+  urls:
+  - "/auth/**"
+  - "/actuator/**"
+  - "/v2/api-docs/**"
+  - "/assets/**"
+  - "/sys/captcha"
+  - "/sys/register/**"

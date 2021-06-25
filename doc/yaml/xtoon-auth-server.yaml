@@ -1,0 +1,36 @@
+server:
+  port: 8000
+
+dubbo:
+  application:
+    id: xtoon-auth-server
+    name: xtoon-auth-server
+    qosEnable: false
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: nacos://localhost:8848
+    check: false
+  consumer.timeout: 30000
+  consumer.retries: 5
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: haoxin963
+    url: jdbc:mysql://localhost:3306/xtoon-cloud?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+  redis:
+    host: localhost
+    port: 6379
+    password: xtoon123
+    database: 0
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:5003
