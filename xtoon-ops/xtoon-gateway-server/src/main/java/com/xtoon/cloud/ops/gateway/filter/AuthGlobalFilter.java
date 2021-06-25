@@ -58,10 +58,8 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         }
 
         // 存在token且不是黑名单，request写入JWT的载体信息
-//        String tenantId = request.getHeaders().getFirst(CommonConstant.TENANT_ID);
         request = exchange.getRequest().mutate()
                 .header(AuthConstants.JWT_PAYLOAD_KEY, payload)
-//                .header(CommonConstant.TENANT_ID, tenantId)
                 .build();
         exchange = exchange.mutate().request(request).build();
         return chain.filter(exchange);

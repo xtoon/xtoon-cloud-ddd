@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.xtoon.cloud.common.mybatis.MybatisConfiguration
+    com.xtoon.cloud.common.mybatis.MybatisConfiguration,\
+    com.xtoon.cloud.common.mybatis.util.MybatisInterceptor

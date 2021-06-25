@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +23,7 @@ public class LogoutController {
 
     private RedisService redisService;
 
-    @DeleteMapping("/logout")
+    @PostMapping("/logout")
     public Result logout() {
         JSONObject jsonObject = RequestUtils.getJwtPayload();
         String jti = jsonObject.getStr(AuthConstants.JWT_JTI);
