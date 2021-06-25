@@ -4,11 +4,11 @@
   </a>
 </p>
 
-<h1 align="center">xtoon-boot</h1>
+<h1 align="center">xtoon-cloud</h1>
 
 <div align="center">
 
-基于领域驱动设计（DDD）并支持SaaS平台的微服务开发脚手架.
+基于领域驱动设计（DDD）并支持SaaS平台的微服务开发框架.
 
 </div>
 
@@ -29,8 +29,8 @@
 - 支持多租户的SaaS平台；
 
 ## 技术交流
-如果有什么问题或建议可以 [提ISSUE](https://gitee.com/xtoon/xtoon-boot/issues) 或 加群（QQ：130950009），交流技术，分享经验。 <br >
-如果你解决了某些bug，或者新增了一些功能，欢迎 [贡献代码](https://gitee.com/xtoon/xtoon-boot/pulls)，感激不尽~ <br >
+如果有什么问题或建议可以 [提ISSUE](https://gitee.com/xtoon/xtoon-cloud/issues) 或 加群（QQ：130950009），交流技术，分享经验。 <br >
+如果你解决了某些bug，或者新增了一些功能，欢迎 [贡献代码](https://gitee.com/xtoon/xtoon-cloud/pulls)，感激不尽~ <br >
 大家多点 ⭐Star 支持下。
 
 
@@ -38,13 +38,19 @@
 -  基础框架：Spring Cloud Alibaba
 -  网关：Spring Cloud Gateway
 -  鉴权认证：Spring Cloud Security+JWT
--  监控监控：spring-boot-admin
+-  服务监控：spring-boot-admin
 -  流量控制：Sentinel
 -  注册配置中心：Nacos
 -  RPC：dubbo
--  分布式事务：Seata
--  APM：Skywalking
+-  mybatis-plus
 
+## 启动顺序
+-  xtoon-register-server（注册配置中心）
+-  xtoon-sys-server（用户服务）
+-  xtoon-auth-server（认证服务）
+-  xtoon-gateway-server（网关服务）
+-  xtoon-monitor-server（监控服务）
+-  xtoon-sentinel-server（流量控制服务）
 
 ## 主要模块
 1.  登录注册：账号、手机号验证登录，租户注册；
@@ -54,11 +60,6 @@
 5.  租户管理：租户列表，禁用等；
 6.  日志管理：记录操作日志记录和查询；
 
-## 项目结构 
-```
-xtoon-cloud（开发中）   
-
-```
 
 ## 核心理念
 ### 六边形理论
@@ -90,11 +91,6 @@ Alistair Cockburn提出了六边形架构，又被称为端口和适配器架构
 负责表达业务概念，业务状态信息以及业务规则。尽管保存业务状态的技术细节 是由基础设施层实现的，但是反映业务情况的状态是由本层控制并且使用的。领域 层是业务软件的核心
 - 基础设施层  
 为上面各层提供通用的技术能力:为应用层传递消息，为领域层提供持久化机制， 为用户界面层绘制屏幕组件，等等。基础设施层还能够通过架构框架来支持4个层次 间的交互模式
-
-## 为何开源
-工作中一直有个困恼：为什么身边很多项目后期维护时业务逻辑变的混乱不堪，service层代码变的庞大难以变更，维护成本居高不下，有没有好的解决方式的？<br>
-Eric Evans的DDD（Domain-Driven Design 领域驱动设计）正是为了解决复杂业务而提出。
-我们1.1版本终于上线了，框架开源出来是想跟大家探讨并一起维护，希望今后有更多的项目和产品能使用基于框架开发。
 
 ## 相关文档
 - [CSDN博客-DDD系列](https://blog.csdn.net/haoxin963/category_10708582.html)持续更新中，欢迎关注！
