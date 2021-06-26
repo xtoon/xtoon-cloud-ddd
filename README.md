@@ -53,13 +53,6 @@
 -  RPC：dubbo
 -  mybatis-plus
 
-## 启动顺序
--  xtoon-register-server（注册配置中心）
--  xtoon-sys-server（用户服务）
--  xtoon-auth-server（认证服务）
--  xtoon-gateway-server（网关服务）
--  xtoon-monitor-server（监控服务）
--  xtoon-sentinel-server（流量控制服务）
 
 ## 主要模块
 1.  登录注册：账号、手机号验证登录，租户注册；
@@ -68,6 +61,57 @@
 4.  菜单管理：树形菜单管理，可配置菜单和按钮权限等；
 5.  租户管理：租户列表，禁用等；
 6.  日志管理：记录操作日志记录和查询；
+
+## 项目结构 
+```
+xtoon-could
+├──doc                           文档
+│    ├─db                        sql
+│    └─yaml                      配置文件
+│ 
+├─xtoon-common                   公共模块
+│    ├─xtoon-common-core         核心公共模块
+│    ├─xtoon-common-log          日志公共模块
+│    ├─xtoon-common-mybatis      mybatis公共模块
+│    ├─xtoon-common-redis        redis公共模块
+│    ├─xtoon-common-swagger      swagger公共模块
+│    ├─xtoon-common-tenant       多租户公共模块 
+│    └─xtoon-common-web          web公共模块 
+│   
+├─xtoon-ops                      运维服务
+│    ├─xtoon-auth-server         认证服务
+│    ├─xtoon-gateway-server      网关  
+│    ├─xtoon-monitor-server      健康监控服务 
+│    ├─xtoon-register-server     注册配置中心
+│    └─xtoon-sentinel-server     流量控制
+│ 
+├─xtoon-service                  业务服务
+│    └─xtoon-sys                 系统管理领域
+│         ├─xtoon-sys-interface  系统管理接口
+│         └─xtoon-sys-server     系统管理服务
+│       
+
+```
+
+## 部署
+
+### 部署方式
+- 拉取前后端项目代码；
+- 安装必要的环境：jdk1.8+,mysql5.7+,redis,nodejs等；
+- mysql新建两个库，导入doc下面的sql文件；
+- 修改成本地环境配置：mysql，redis；
+- 启动前后端项目，访问地址；
+
+### 启动顺序
+- xtoon-register-server（注册配置中心）
+- xtoon-sys-server（用户服务）
+- xtoon-auth-server（认证服务）
+- xtoon-gateway-server（网关服务）
+- xtoon-monitor-server（监控服务）
+- xtoon-sentinel-server（流量控制服务）
+- xtoon-could-element（前端项目）
+
+生产环境部署可以加群（QQ：130950009）交流
 
 
 ## 核心理念
