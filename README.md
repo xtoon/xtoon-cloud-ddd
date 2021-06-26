@@ -111,8 +111,6 @@ xtoon-could
 - xtoon-sentinel-server（流量控制服务）
 - xtoon-could-element（前端项目）
 
-生产环境部署可以加群（QQ：130950009）交流
-
 
 ## 核心理念
 ### 六边形理论
