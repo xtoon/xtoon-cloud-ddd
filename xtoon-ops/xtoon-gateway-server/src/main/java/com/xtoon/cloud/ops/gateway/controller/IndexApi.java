@@ -20,6 +20,6 @@ public class IndexApi {
      */
     @RequestMapping("/")
     public Mono<String> index() {
-        return Mono.just("gamma cloud gateway");
+        return Mono.just("xtoon cloud gateway");
     }
 }

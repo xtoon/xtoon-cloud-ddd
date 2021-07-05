@@ -95,14 +95,14 @@ xtoon-could
 
 ## 部署
 
-### 部署方式
+### 前期准备
 - 拉取前后端项目代码；
 - 安装必要的环境：jdk1.8+,mysql5.7+,redis,nodejs等；
 - mysql新建两个库，导入doc下面的sql文件；
 - 修改成本地环境配置：mysql，redis；
-- 启动前后端项目，访问地址；
+- 启动前后端项目，访问地址；#
 
-### 启动顺序
+### 本地启动顺序
 - xtoon-register-server（注册配置中心）
 - xtoon-sys-server（用户服务）
 - xtoon-auth-server（认证服务）
@@ -111,7 +111,8 @@ xtoon-could
 - xtoon-sentinel-server（流量控制服务）
 - xtoon-could-element（前端项目）
 
-生产环境部署可以加群（QQ：130950009）交流
+### 测试/生产发布
+支持jenkins pipeline + docker + harbor + k8s部署，项目开源配置文件：Dockerfile，Jenkinsfile，k8s-deployment.tpl，具体可加群讨论（QQ：13095000）
 
 
 ## 核心理念

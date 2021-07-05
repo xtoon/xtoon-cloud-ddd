@@ -12,7 +12,7 @@ import java.util.Properties;
 /**
  * 生成验证码配置
  *
- * @author gamma
+ * @author xtoon
  */
 @Configuration
 public class KaptchaConfig {
