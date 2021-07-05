@@ -1,0 +1,58 @@
+pipeline {
+    agent any
+    environment {
+        HARBOR_CREDS = credentials('jenkins-harbor-creds')
+        K8S_CONFIG = credentials('jenkins-k8s-config')
+        GIT_TAG = sh(returnStdout: true,script: 'git describe --tags --always').trim()
+    }
+    parameters {
+        string(name: 'HARBOR_HOST', defaultValue: '192.168.99.41:30002', description: 'harbor_url')
+        string(name: 'DOCKER_IMAGE', defaultValue: 'xtoon-cloud/xtoon-auth-server', description: 'docker_image_tag')
+        string(name: 'APP_NAME', defaultValue: 'xtoon-auth-server', description: 'app_name')
+        string(name: 'K8S_NAMESPACE', defaultValue: 'xtoon', description: 'k8s_namespace')
+    }
+    stages {
+        stage('Maven Build') {
+            agent {
+                docker {
+                    image 'maven:3-jdk-8-alpine'
+                    args '-v $HOME/.m2:/root/.m2'
+                }
+            }
+            steps {
+                sh 'mvn clean package -DskipTests=true'
+            }
+
+        }
+        stage('Docker Build') {
+            agent any
+            steps {
+                dir('xtoon-ops/xtoon-auth-server') {
+                    sh "docker login -u ${HARBOR_CREDS_USR} -p ${HARBOR_CREDS_PSW} ${params.HARBOR_HOST}"
+                    sh "docker build -t ${params.HARBOR_HOST}/${params.DOCKER_IMAGE}:${GIT_TAG} ."
+                    sh "docker push ${params.HARBOR_HOST}/${params.DOCKER_IMAGE}:${GIT_TAG}"
+                    sh "docker rmi ${params.HARBOR_HOST}/${params.DOCKER_IMAGE}:${GIT_TAG}"
+                }
+            }
+
+        }
+        stage('Deploy') {
+            agent {
+                docker {
+                    image 'lwolf/helm-kubectl-docker'
+                }
+            }
+            steps {
+                dir('xtoon-ops/xtoon-auth-server') {
+                    sh "mkdir -p ~/.kube"
+                    sh "echo ${K8S_CONFIG} | base64 -d > ~/.kube/config"
+                    sh "sed -e 's#{IMAGE_URL}#${params.HARBOR_HOST}/${params.DOCKER_IMAGE}#g;s#{IMAGE_TAG}#${GIT_TAG}#g;s#{APP_NAME}#${params.APP_NAME}#g;s#{SPRING_PROFILE}#k8s-test#g' k8s-deployment.tpl > k8s-deployment.yml"
+                    sh "kubectl apply -f k8s-deployment.yml --force=true --namespace=${params.K8S_NAMESPACE}"
+                }
+            }
+
+        }
+
+
+    }
+}
